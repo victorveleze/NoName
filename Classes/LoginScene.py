@@ -1,6 +1,6 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
-from Classes.Utilities.Database import Database
+from Classes.Utilities.ActionManager import ActionManager
 from Classes.SignUpScene import SignUpScene
 
 class LoginScene(QMainWindow):
@@ -22,7 +22,13 @@ class LoginScene(QMainWindow):
 
 
     def login(self):
-        database = Database()
+        username = self.LE_UserName.text()
+        password = self.LE_UserPass.text()
+
+        actionManager = ActionManager()
+        actionManager.loadPost()
+        return
+        actionManager.loadAction("login", username, password)
 
 
     def signUp(self):
