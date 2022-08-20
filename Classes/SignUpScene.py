@@ -1,5 +1,6 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
+from Classes.Utilities.ActionManager import ActionManager
 
 class SignUpScene(QMainWindow):
     def __init__(self):
@@ -16,10 +17,15 @@ class SignUpScene(QMainWindow):
 
 
     def submit(self):
-        userName = self.LE_UserName.text()
-        userLastName = self.LE_UserLastName.text()
-        userEmail = self.LE_UserEmail.text()
-        companyName = self.LE_CompanyName.text()
+        userInfo = {
+            "user_name" : self.LE_UserName.text(),
+            "user_last_name" : self.LE_UserLastName.text(),
+            "user_email" : self.LE_UserEmail.text(),
+            "company_name" : self.LE_CompanyName.text()
+        }
 
-        print(userName)
+        ActionManager().loadAction("addUser", userInfo, self.submitCallback)
+
+    def submitCallback(self, response):
+        print(response)
 

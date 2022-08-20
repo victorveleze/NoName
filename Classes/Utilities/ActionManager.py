@@ -1,27 +1,27 @@
 import requests
+from Classes.Utilities.Singleton import Singleton
 
-class ActionManager():
+SERVER_URL = "http://127.0.0.1:8000/"
+
+class ActionManager(metaclass=Singleton):
     def __init__(self):
-        print("Action manager created")
+        print("[ActionManager] Action manager created")
 
-    def loadAction(self, actionName, param1, param2):
-        print("Loading action %s username= %s, pass = %s", actionName, param1, param2)
+    def loadAction(self, actionName, paramsMap, callback):
+        print("[ActionManager] Loading action ", actionName)
 
-        request = "http://127.0.0.1:8000/" + actionName + "/" + param1 + "/" + param2
-        actionRequest = requests.get(request)
+        request = SERVER_URL + actionName + "/"
+        actionRequest = requests.post(request, json = paramsMap)
 
-        print(actionRequest.text)
+        if actionRequest.status_code == 200:
+            callback(actionRequest.json())
+        else:
+            self.failedActionCallback(actionRequest)
 
-    def loadPost(self):
-        jsonData = {
-            'data' : {
-                'name' : 'Victorr'
-            }
-        }
-        request = requests.post("http://127.0.0.1:8000/PostR/", json = jsonData)
 
-        print(request.text)
-
+    def failedActionCallback(self, actionResponse):
+        print("[ActionManager] Action failed with code ", actionResponse.status_code)
+            
 
     def __del__(self):
-        print("Action manager deleted")
+        print("[ActionManager] Action manager deleted")

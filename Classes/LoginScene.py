@@ -25,11 +25,16 @@ class LoginScene(QMainWindow):
         username = self.LE_UserName.text()
         password = self.LE_UserPass.text()
 
-        actionManager = ActionManager()
-        actionManager.loadPost()
-        return
-        actionManager.loadAction("login", username, password)
+        loginInfo = {
+            "username" : username,
+            "password" : password
+        }
+        ActionManager().loadAction("login", loginInfo, self.loginCallback)
 
 
     def signUp(self):
         self.SignUpScene.show()
+
+
+    def loginCallback(self, actionResponse):
+        print(actionResponse)
