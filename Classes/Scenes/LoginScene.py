@@ -1,13 +1,15 @@
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow
 from Classes.Utilities.ActionManager import ActionManager
-from Classes.SignUpScene import SignUpScene
+from Classes.Scenes.SignUpScene import SignUpScene
+from Classes.Scenes.MainScene import MainScene
 
 class LoginScene(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("Resources/Scenes/LoginScene.ui", self)
         self.SignUpScene = SignUpScene()
+        self.MainScene = MainScene()
         self.initUI()
     
         
@@ -37,4 +39,5 @@ class LoginScene(QMainWindow):
 
 
     def loginCallback(self, actionResponse):
-        print(actionResponse)
+        if actionResponse["success"]:
+            self.MainScene.show()

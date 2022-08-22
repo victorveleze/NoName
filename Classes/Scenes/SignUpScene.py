@@ -21,10 +21,12 @@ class SignUpScene(QMainWindow):
             "user_name" : self.LE_UserName.text(),
             "user_last_name" : self.LE_UserLastName.text(),
             "user_email" : self.LE_UserEmail.text(),
-            "company_name" : self.LE_CompanyName.text()
+            "company_name" : self.LE_CompanyName.text(),
+            "password" : self.LE_Password.text()
         }
 
         ActionManager().loadAction("addUser", userInfo, self.submitCallback)
+
 
     def submitCallback(self, response):
         print(response)

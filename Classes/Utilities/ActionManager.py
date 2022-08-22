@@ -14,7 +14,8 @@ class ActionManager(metaclass=Singleton):
         actionRequest = requests.post(request, json = paramsMap)
 
         if actionRequest.status_code == 200:
-            callback(actionRequest.json())
+            print("response: " + actionRequest.json()["response"])
+            callback(actionRequest.json()["data"])
         else:
             self.failedActionCallback(actionRequest)
 

@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from Classes.LoginScene import LoginScene
+from Classes.Scenes.LoginScene import LoginScene
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
